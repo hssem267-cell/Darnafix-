@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darnafix - خدمات منزلية</title>
+<style>
+body {font-family: Arial; margin:0; background:#f6f7fb; color:#111;}
+header {background:#111827; color:#fff; padding:18px; text-align:center;}
+.tabs {display:flex; justify-content:center; margin-top:14px;}
+.tab {padding:10px 20px; margin:0 5px; border-radius:10px; background:#ddd; cursor:pointer; font-weight:bold;}
+.tab.active {background:#16a34a; color:#fff;}
+.container {padding:16px; max-width:520px; margin:auto;}
+.card {background:#fff; padding:16px; border-radius:14px; box-shadow:0 6px 18px rgba(0,0,0,.08); margin-top:14px;}
+input, select, button {width:100%; padding:12px; margin-top:10px; border-radius:10px; border:1px solid #ddd; font-size:16px;}
+button {background:#16a34a; color:#fff; border:none; font-weight:bold; cursor:pointer;}
+button:hover {opacity:.95}
+.small {font-size:13px; color:#555; margin-top:10px;}
+</style>
+</head>
+<body>
+
+<header>
+<h2>Darnafix</h2>
+<p>خدمات منزلية في برج بوعريريج</p>
+</header>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('customers')">الزبائن</div>
+<div class="tab" onclick="showTab('workers')">الحرفيين</div>
+</div>
+
+<div class="container">
+
+<div id="customers">
+<div class="card">
+<h3>اطلب الخدمة الآن</h3>
+<label>الخدمة</label>
+<select id="cust_service">
+<option>سباك</option>
+<option>كهربائي</option>
+<option>نجار</option>
+<option>دهان</option>
+<option>تنظيف</option>
+<option>تركيب كاميرات</option>
+</select>
+<label>الحي / المنطقة</label>
+<input id="cust_area" placeholder="مثال: حي بوعريريج" />
+<button onclick="orderService()">أرسل الطلب</button>
+<p class="small">الطلبات تروح مباشرة على WhatsApp رقم: 0781020863</p>
+</div>
+</div>
+
+<div id="workers" style="display:none;">
+<div class="card">
+<h3>سجل كحرفي</h3>
+<label>الاسم الكامل</label>
+<input id="worker_name" placeholder="مثال: أحمد محمد" />
+<label>رقم الهاتف</label>
+<input id="worker_phone" placeholder="مثال: 0781234567" />
+<label>نوع الخدمة</label>
+<select id="worker_service">
+<option>سباك</option>
+<option>كهربائي</option>
+<option>نجار</option>
+<option>دهان</option>
+<option>تنظيف</option>
+<option>تركيب كاميرات</option>
+</select>
+<label>الحي / المنطقة</label>
+<input id="worker_area" placeholder="مثال: حي بوعريريج" />
+<button onclick="registerWorker()">سجل الآن</button>
+<p class="small">التسجيلات تروح مباشرة على WhatsApp رقم: 0781020863</p>
+</div>
+</div>
+
+</div>
+
+<script>
+function showTab(tab){
+document.getElementById('customers').style.display = (tab==='customers')?'block':'none';
+document.getElementById('workers').style.display = (tab==='workers')?'block':'none';
+const tabs=document.querySelectorAll('.tab');
+tabs.forEach(t=>t.classList.remove('active'));
+document.querySelector(`.tab[onclick="showTab('${tab}')"]`).classList.add('active');
+}
+
+function orderService(){
+const service=document.getElementById("cust_service").value;
+const area=document.getElementById("cust_area").value;
+if(!service||!area){alert("رجاءً عبي كل الحقول!");return;}
+const msg=`سلام، نحب نطلب خدمة من Darnafix:
+- الخدمة: ${service}
+- الحي: ${area}`;
+const waNumber="213781020863";
+const waURL=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+window.open(waURL,"_blank");
+}
+
+function registerWorker(){
+const name=document.getElementById("worker_name").value;
+const phone=document.getElementById("worker_phone").value;
+const service=document.getElementById("worker_service").value;
+const area=document.getElementById("worker_area").value;
+if(!name||!phone||!service||!area){alert("رجاءً عبي كل الحقول!");return;}
+const msg=`سلام، حبيت نسجل كحرفي في Darnafix:
+- الاسم: ${name}
+- رقم الهاتف: ${phone}
+- الخدمة: ${service}
+- الحي: ${area}`;
+const waNumber="213781020863";
+const waURL=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+window.open(waURL,"_blank");
+}
+</script>
+
+</body>
+</html>
